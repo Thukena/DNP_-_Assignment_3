@@ -1,0 +1,56 @@
+{
+  "Users": [
+    {
+      "Id": 1,
+      "Username": "string",
+      "Password": "string"
+    },
+    {
+      "Id": 2,
+      "Username": "Marcus",
+      "Password": "yoo"
+    }
+  ],
+  "Posts": [
+    {
+      "Id": 1,
+      "User": {
+        "Id": 2,
+        "Username": "Marcus",
+        "Password": "yoo"
+      },
+      "Title": "string",
+      "Body": "string"
+    },
+    {
+      "Id": 2,
+      "User": {
+        "Id": 2,
+        "Username": "Marcus",
+        "Password": "yoo"
+      },
+      "Title": "Hello everyone",
+      "Body": "Hey"
+    },
+    {
+      "Id": 3,
+      "User": {
+        "Id": 2,
+        "Username": "Marcus",
+        "Password": "yoo"
+      },
+      "Title": "Test",
+      "Body": "test test"
+    },
+    {
+      "Id": 4,
+      "User": {
+        "Id": 2,
+        "Username": "Marcus",
+        "Password": "yoo"
+      },
+      "Title": "HEYYY",
+      "Body": "Just wanted to say hello :)"
+    }
+  ]
+}
