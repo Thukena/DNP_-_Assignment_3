@@ -1,9 +1,70 @@
 ﻿@page "/"
-
+@using HttpClients.ClientInterfaces
+@using Domain.Models
+@inject NavigationManager NavMgr
+@inject IUserService UserService
+@inject IPostsService PostsService
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="field">
+            <button class="loginbtn" @onclick="Login">Log in</button>
+        </div>
+    </NotAuthorized>
+    <Authorized>
+        <div class="field">
+            <button class="loginbtn" @onclick="Logout">Log out</button>
+        </div>
+        <div class="field">
+            <button class="loginbtn" @onclick="CreatePost">Create Post</button>
+        </div>
+    </Authorized>
+</AuthorizeView>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?"/>
+@if (Posts != null)
+{
+    @foreach (var post in Posts)
+    {
+        <h5 @onclick="@(() => ViewPost(post.Id))">@post.Title</h5>
+    }
+}
+
+
+@code
+{
+    private IEnumerable<Post>? Posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPosts();
+    }
+
+    private async Task LoadPosts()
+    {
+        Posts = await PostsService.GetAsync();
+    }
+    
+    private void Login()
+    {
+        NavMgr.NavigateTo("/Login");
+    }
+
+    private async Task Logout()
+    {
+        await UserService.LogoutAsync();
+        NavMgr.NavigateTo("/");
+    }
+
+    private void CreatePost()
+    {
+        
+    }
+
+    private void ViewPost(int id)
+    {
+        NavMgr.NavigateTo("/Login");
+    }
+    
+}

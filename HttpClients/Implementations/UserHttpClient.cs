@@ -16,6 +16,7 @@ public class UserHttpClient : IUserService
     {
         _Client = client;
     }
+
     
     public static string? Jwt { get; private set; } = "";
 
@@ -68,9 +69,10 @@ public class UserHttpClient : IUserService
         return Task.CompletedTask;    
     }
 
-    public async Task RegisterAsync(User user)
+    public async Task RegisterAsync(string username, string password)
     {
-        string userAsJson = JsonSerializer.Serialize(user);
+        UserCreationDto dto = new(username, password);
+        string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await _Client.PostAsync("https://localhost:7113/user/register", content);
         string responseContent = await response.Content.ReadAsStringAsync();

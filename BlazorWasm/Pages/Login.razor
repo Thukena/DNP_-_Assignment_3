@@ -1,7 +1,8 @@
 ﻿@page "/Login"
 @using HttpClients.ClientInterfaces
-@inject IUserService _userService
-@inject NavigationManager navMgr
+@using Domain.Models
+@inject IUserService UserService
+@inject NavigationManager NavMgr
 
 <AuthorizeView>
     <NotAuthorized>
@@ -26,6 +27,10 @@
             <div class="field">
                 <button class="loginbtn" @onclick="LoginAsync">Log in</button>
             </div>
+            <div class="field">
+                <button class="loginbtn" @onclick="RegisterAsync">Register</button>
+            </div>            
+            
         </div>
     </NotAuthorized>
     <Authorized>
@@ -45,13 +50,18 @@
         errorLabel = "";
         try
         {
-            await _userService.LoginAsync(userName, password);
-            navMgr.NavigateTo("/");
+            await UserService.LoginAsync(userName, password);
+            NavMgr.NavigateTo("/");
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             errorLabel = $"Error: {e.Message}";
         }
+    }
+
+    private async Task RegisterAsync()
+    {
+        await UserService.RegisterAsync(userName, password);
     }
 }

@@ -16,7 +16,7 @@ public class PostFileDao : IPostDao
 
     public Task<Post> CreateAsync(PostCreationDto dto)
     {
-        User? user = context.Users.Find(u => u.Id == dto.UserId);
+        User? user = context.Users.FirstOrDefault(u => u.Id == dto.UserId);
 
         int id = 1;
         
