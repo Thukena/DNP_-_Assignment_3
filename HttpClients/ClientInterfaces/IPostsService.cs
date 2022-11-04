@@ -8,5 +8,6 @@ public interface IPostsService
 
     Task CreateAsync(PostCreationDto dto);
     Task<IEnumerable<Post>> GetAsync(string? title = null);
+    Task<PostBasicDto> GetByIdAsync(int id);
 
 }

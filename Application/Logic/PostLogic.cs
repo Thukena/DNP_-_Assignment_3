@@ -26,4 +26,15 @@ public class PostLogic : IPostLogic
     {
         return postDao.GetAsync(dto);
     }
+
+    public async Task<PostBasicDto> GetByIdAsync(int id)
+    {
+        Post? post = await postDao.GetByIdAsync(id);
+        if (post == null)
+        {
+            throw new Exception($"Todo with id {id} not found");
+        }
+
+        return new PostBasicDto(post.Id, post.User.Username, post.Title, post.Body);
+    }
 }
