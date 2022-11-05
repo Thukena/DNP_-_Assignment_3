@@ -17,11 +17,6 @@ public class UserFileDao : IUserDao
     //Register
     public Task<User> CreateAsync(UserCreationDto dto)
     {
-
-        if (dto.Username == null|| dto.Password == null)
-        {
-            throw new Exception($"Username or password cannot be empty!");
-        }
         
         int id = 1;
         if (context.Users.Any())
@@ -30,7 +25,7 @@ public class UserFileDao : IUserDao
             id++;
         }
 
-        User user = new User(id, dto.Username, dto.Password);
+        User user = new User(id, dto.Username!, dto.Password!);
         
         context.Users.Add(user);
         context.SaveChanges();

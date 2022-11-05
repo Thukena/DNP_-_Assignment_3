@@ -4,53 +4,49 @@
 @inject NavigationManager NavMgr
 @inject IUserService UserService
 @inject IPostsService PostsService
+
 <PageTitle>Index</PageTitle>
+
+
+
 
 <AuthorizeView>
     <NotAuthorized>
         <div class="field">
-            <button class="loginbtn" @onclick="Login">Log in</button>
+            <button @onclick="Login">Log in</button>
         </div>
     </NotAuthorized>
     <Authorized>
         <div class="field">
-            <button class="loginbtn" @onclick="Logout">Log out</button>
+            <button @onclick="Logout">Log out</button>
         </div>
     </Authorized>
 </AuthorizeView>
 
         <div class="field">
-            <button class="loginbtn" @onclick="CreatePost">Create Post</button>
+            <button @onclick="CreatePost">Create Post</button>
         </div>
+
 
 @if (Posts != null)
 {
-    @foreach (var post in Posts)
-    {
-        <h5 @onclick="@(() => ViewPost(post.Id))">@post.Title</h5>
-    }
+    @foreach (var post in Posts.Reverse())
+            {
+                <div class="card" @onclick="@(() => ViewPost(post.Id))">
+                    <h5>@post.Title</h5>
+                </div>
+            }
 }
-
 
 @code
 {
     private IEnumerable<Post>? Posts;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await LoadPosts();
-    }
 
     protected override async Task OnInitializedAsync()
     {
         await LoadPosts();
     }
 
-
-    private void LocationChanged(Object sender, LocationChangedEventArgs e)
-    {
-        
-    }
     
     private async Task LoadPosts()
     {

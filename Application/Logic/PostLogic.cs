@@ -19,12 +19,12 @@ public class PostLogic : IPostLogic
     {
         //todo add validation
 
-        if (dto.Title == null)
+        if (string.IsNullOrEmpty(dto.Title))
         {
             throw new Exception("Title cannot be empty");
         }
 
-        if (dto.Body == null)
+        if (string.IsNullOrEmpty(dto.Body))
         {
             throw new Exception("Body cannot be empty");
         }

@@ -5,19 +5,19 @@
 @inject NavigationManager NavMgr
 
 
-
 @if (post == null)
 {
     <h3>This post does not exist!</h3>
 }
 else
 {
-    
-    <h5>@post.Username</h5>
-    
-    <h3>@post.Title</h3>
-
-    <p>@post.Body</p>
+    <div class="post">
+        <h6>Posted by @post.Username</h6>
+        <h3>@post.Title</h3>
+        <div class="field">
+            <p>@post.Body</p>
+        </div>
+    </div>
 }
 
 @code {

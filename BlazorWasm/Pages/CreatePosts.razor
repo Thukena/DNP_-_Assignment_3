@@ -5,50 +5,60 @@
 @inject IPostsService PostService
 @inject NavigationManager NavMgr
 
-<h3>CreatePosts</h3>
+ <div class="post">
+    
+    <h3>Create your own post</h3>
+     <AuthorizeView>
+         <Authorized>
+             <div style="text-align: left" class="field">
+                 <label>Title:</label>
+                 <input type="text" @bind="title"/>
+             </div>
+             <div class="field">
+                 @* <label>Body</label> *@
+                 <textarea @bind="body">Text...</textarea>
+                
+                 @* <input type="text" @bind="body"/> *@
+                
+             </div>
 
-<AuthorizeView>
-    <Authorized>
-        <div class="card">
-            <h3>Create your own post</h3>
-            <div class="field">
-                <label>Title:</label>
-                <input type="text" @bind="title"/>
-            </div>
-            <div class="textarea">
-                <label style="text-align: center">Body</label>
-                <input type="text" @bind="body"/>
-            </div>
-            @if (!string.IsNullOrEmpty(errorLabel))
-            {
-                <div class="field">
-                    <label style="color: red">
-                        @errorLabel
-                    </label>
-                </div>
-            }
-            <div class="field">
-                <button @onclick="CreatePost">Create Post</button>
-            </div>
-  
-        </div>
-    </Authorized>
-    <NotAuthorized>
-        <div class="card">
-            <h3>You need to be logged in before creating a post!</h3>
-        </div>
-    </NotAuthorized>
-</AuthorizeView>
+             <div class="field">
+                 <button @onclick="CreatePost">Create Post</button>
+             </div>
+             @if (!string.IsNullOrEmpty(errorLabel))
+             {
+                 <div class="field">
+                     <label style="color: red">
+                         @errorLabel
+                     </label>
+                 </div>
+             }
+             @if (!string.IsNullOrEmpty(msgLabel))
+             {
+                 <div class="field">
+                     <label style="color: green">
+                         @msgLabel
+                     </label>
+                 </div>
+             }        
+     
+         </Authorized>
+         <NotAuthorized>
+             <p>You need to be logged in before creating a post!</p>
+         </NotAuthorized>
+     </AuthorizeView>
+ </div>
 
 @code {
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; } = null!;
     
-    private string errorLabel = "";
+    private string errorLabel;
+    private string msgLabel;
 
-    private int id;
     private string title;
     private string body;
+    private int id;
     private string userName;
     
     
@@ -65,21 +75,22 @@
         }  
     }
     
-    private void CreatePost()
+    private async Task CreatePost()
     {
         errorLabel = "";
+        msgLabel = "";
         try
         {
-            PostService.CreateAsync(id, title, body);
-            NavMgr.NavigateTo("/");
+            await PostService.CreateAsync(id, title, body);
+            msgLabel = "Your Post has been successfully created!";
+            title = "";
+            body = "";
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             errorLabel = $"Error: {e.Message}";
         }
-
-
     }
 
 

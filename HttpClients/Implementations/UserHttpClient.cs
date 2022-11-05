@@ -71,8 +71,6 @@ public class UserHttpClient : IUserService
 
     public async Task RegisterAsync(string username, string password)
     {
-        
-        
         UserCreationDto dto = new(username, password);
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");

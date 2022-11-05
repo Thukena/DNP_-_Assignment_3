@@ -18,13 +18,15 @@ public class UserLogic : IUserLogic
     public async Task<User> CreateAsync(UserCreationDto dto)
     {
         //todo add validation
+        if (string.IsNullOrEmpty(dto.Username) ||string.IsNullOrEmpty(dto.Password))
+        {
+            throw new Exception($"Username or password cannot be empty!");
+        }
+
         User user = await userDao.CreateAsync(dto);
         
-        if (user != null)
-        {
-            return user;
-        }
-        throw new Exception($"Username or password cannot be empty!");
+        return user;
+        
     }
 
     public async Task<User> GetAsync(UserLoginDto dto)
