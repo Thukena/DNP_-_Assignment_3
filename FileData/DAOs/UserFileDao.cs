@@ -13,10 +13,16 @@ public class UserFileDao : IUserDao
     {
         this.context = context;
     }
-
-
+    
+    //Register
     public Task<User> CreateAsync(UserCreationDto dto)
     {
+
+        if (dto.Username == null|| dto.Password == null)
+        {
+            throw new Exception($"Username or password cannot be empty!");
+        }
+        
         int id = 1;
         if (context.Users.Any())
         {
@@ -32,7 +38,7 @@ public class UserFileDao : IUserDao
         return Task.FromResult(user);
     }
 
-    //login
+    //Login
     public Task<User> GetAsync(UserLoginDto dto)
     {
         User? user = context.Users.Find(u => u.Username.Equals(dto.Username, StringComparison.OrdinalIgnoreCase));

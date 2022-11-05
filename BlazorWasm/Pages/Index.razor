@@ -16,12 +16,12 @@
         <div class="field">
             <button class="loginbtn" @onclick="Logout">Log out</button>
         </div>
-        <div class="field">
-            <button class="loginbtn" @onclick="CreatePost">Create Post</button>
-        </div>
     </Authorized>
 </AuthorizeView>
 
+        <div class="field">
+            <button class="loginbtn" @onclick="CreatePost">Create Post</button>
+        </div>
 
 @if (Posts != null)
 {
@@ -36,16 +36,27 @@
 {
     private IEnumerable<Post>? Posts;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await LoadPosts();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         await LoadPosts();
     }
 
+
+    private void LocationChanged(Object sender, LocationChangedEventArgs e)
+    {
+        
+    }
+    
     private async Task LoadPosts()
     {
         Posts = await PostsService.GetAsync();
     }
-    
+
     private void Login()
     {
         NavMgr.NavigateTo("/Login");
@@ -59,12 +70,15 @@
 
     private void CreatePost()
     {
-        
+        NavMgr.NavigateTo("/CreatePosts");
+
     }
 
     private void ViewPost(int id)
     {
         NavMgr.NavigateTo($"posts/{id}");
     }
+    
+    
     
 }

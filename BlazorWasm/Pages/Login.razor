@@ -62,6 +62,17 @@
 
     private async Task RegisterAsync()
     {
-        await UserService.RegisterAsync(userName, password);
+        errorLabel = "";
+        try
+        {
+            await UserService.RegisterAsync(userName, password);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+        
     }
 }

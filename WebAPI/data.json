@@ -4,6 +4,21 @@
       "Id": 1,
       "Username": "string",
       "Password": "string"
+    },
+    {
+      "Id": 2,
+      "Username": "bob",
+      "Password": "bob"
+    },
+    {
+      "Id": 3,
+      "Username": "lol",
+      "Password": "lol"
+    },
+    {
+      "Id": 4,
+      "Username": "hey",
+      "Password": "hey"
     }
   ],
   "Posts": [
@@ -26,6 +41,76 @@
       },
       "Title": "HELLO LOOK OVER HERE",
       "Body": "Just wanted to say hello :)"
+    },
+    {
+      "Id": 3,
+      "User": {
+        "Id": 1,
+        "Username": "string",
+        "Password": "string"
+      },
+      "Title": "Hello there",
+      "Body": "test"
+    },
+    {
+      "Id": 4,
+      "User": {
+        "Id": 2,
+        "Username": "bob",
+        "Password": "bob"
+      },
+      "Title": "YOO IM BOB",
+      "Body": "HELLO"
+    },
+    {
+      "Id": 5,
+      "User": {
+        "Id": 2,
+        "Username": "bob",
+        "Password": "bob"
+      },
+      "Title": "hey",
+      "Body": "hey"
+    },
+    {
+      "Id": 6,
+      "User": {
+        "Id": 3,
+        "Username": "lol",
+        "Password": "lol"
+      },
+      "Title": "test",
+      "Body": "test"
+    },
+    {
+      "Id": 7,
+      "User": {
+        "Id": 3,
+        "Username": "lol",
+        "Password": "lol"
+      },
+      "Title": "string",
+      "Body": "string"
+    },
+    {
+      "Id": 8,
+      "User": {
+        "Id": 1,
+        "Username": "string",
+        "Password": "string"
+      },
+      "Title": "ASDFSADF",
+      "Body": "FDSFDSA"
+    },
+    {
+      "Id": 9,
+      "User": {
+        "Id": 2,
+        "Username": "bob",
+        "Password": "bob"
+      },
+      "Title": "DSFGADSGAFFDSDSFG",
+      "Body": "FDSFDSAFSADFADS"
     }
   ]
 }

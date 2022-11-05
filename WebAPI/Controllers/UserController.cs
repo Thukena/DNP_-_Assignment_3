@@ -88,21 +88,7 @@ public class UserController : ControllerBase
     
     
     
-    // [HttpGet]
-    // public async Task<ActionResult<IEnumerable<User>>> GetAsync([FromQuery] string username, [FromQuery] string password)
-    // {
-    //     try
-    //     {
-    //         UserLoginDto dto = new(username, password);
-    //         User user = await userLogic.GetAsync(dto);
-    //         return Ok(user);
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         Console.WriteLine(e);
-    //         return StatusCode(500, e.Message);
-    //     } 
-    // }
+
 
     
 }

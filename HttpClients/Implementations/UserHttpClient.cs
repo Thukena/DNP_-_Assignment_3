@@ -71,10 +71,12 @@ public class UserHttpClient : IUserService
 
     public async Task RegisterAsync(string username, string password)
     {
+        
+        
         UserCreationDto dto = new(username, password);
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await _Client.PostAsync("https://localhost:7113/user/register", content);
+        HttpResponseMessage response = await _Client.PostAsync("user/register", content);
         string responseContent = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)

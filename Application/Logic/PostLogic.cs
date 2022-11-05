@@ -18,6 +18,17 @@ public class PostLogic : IPostLogic
     public async Task<Post> CreateAsync(PostCreationDto dto)
     {
         //todo add validation
+
+        if (dto.Title == null)
+        {
+            throw new Exception("Title cannot be empty");
+        }
+
+        if (dto.Body == null)
+        {
+            throw new Exception("Body cannot be empty");
+        }
+        
         Post post = await postDao.CreateAsync(dto);
         return post;
     }

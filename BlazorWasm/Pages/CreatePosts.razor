@@ -1,0 +1,86 @@
+﻿@page "/CreatePosts"
+@using HttpClients.ClientInterfaces
+@using System.Security.Claims
+
+@inject IPostsService PostService
+@inject NavigationManager NavMgr
+
+<h3>CreatePosts</h3>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="card">
+            <h3>Create your own post</h3>
+            <div class="field">
+                <label>Title:</label>
+                <input type="text" @bind="title"/>
+            </div>
+            <div class="textarea">
+                <label style="text-align: center">Body</label>
+                <input type="text" @bind="body"/>
+            </div>
+            @if (!string.IsNullOrEmpty(errorLabel))
+            {
+                <div class="field">
+                    <label style="color: red">
+                        @errorLabel
+                    </label>
+                </div>
+            }
+            <div class="field">
+                <button @onclick="CreatePost">Create Post</button>
+            </div>
+  
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div class="card">
+            <h3>You need to be logged in before creating a post!</h3>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    
+    private string errorLabel = "";
+
+    private int id;
+    private string title;
+    private string body;
+    private string userName;
+    
+    
+
+    
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+
+        if (user.Identity != null)
+        {
+            id = Int32.Parse(user.Claims.FirstOrDefault(claim => claim.Type == "Id").Value);
+        }  
+    }
+    
+    private void CreatePost()
+    {
+        errorLabel = "";
+        try
+        {
+            PostService.CreateAsync(id, title, body);
+            NavMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+
+
+    }
+
+
+}
