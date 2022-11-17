@@ -1,16 +1,20 @@
-﻿namespace Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Models;
 
 public class User
 {
-    
-    public int Id { get; }
-    public string Username { get; }
-    public string Password { get; }
+     [Key]
+     public int Id { get; private set; }
+     public string Username { get; private set; }
+     public string Password { get; private set; }
 
-    public User(int id, string username, string password)
+    public User(string username, string password)
     {
-        Id = id;
         Username = username;
         Password = password;
     }
+    
+    public User(){}
+
 }

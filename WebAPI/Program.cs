@@ -2,8 +2,8 @@ using System.Text;
 using Application.DaoInterface;
 using Application.Logic;
 using Application.LogicInterface;
-using FileData;
-using FileData.DAOs;
+using EfcDataAccess;
+using EfcDataAccess.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Auth;
@@ -34,11 +34,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 // adds authorization policies
 AuthorizationPolicies.AddPolicies(builder.Services);
 
-builder.Services.AddScoped<FileContext>(); 
-builder.Services.AddScoped<IUserDao, UserFileDao>();
+builder.Services.AddScoped<ForumContext>(); 
+builder.Services.AddScoped<IUserDao, UserEfcDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 
-builder.Services.AddScoped<IPostDao, PostFileDao>();
+builder.Services.AddScoped<IPostDao, PostEfcDao>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
 
 var app = builder.Build();

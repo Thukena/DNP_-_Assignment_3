@@ -1,17 +1,24 @@
-﻿namespace Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace Domain.Models;
 
 public class Post
 {
-    public int Id { get; }
-    public User User { get; }
-    public string Title { get; }
-    public string Body { get; }
+    [Key]
+    public int Id { get; set; }
+    public User User { get; set;}
+    public string Title { get; private set;}
+    public string Body { get; private set;}
 
-    public Post(int id, User user, string title, string body)
+    public Post(User user, string title, string body)
     {
-        Id = id;
         User = user;
         Title = title;
         Body = body;
     }
+    
+    private Post(){}
+
 }
